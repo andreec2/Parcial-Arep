@@ -9,11 +9,12 @@ import java.net.URL;
 public class HttpConnectionExample {
 
     private static final String USER_AGENT = "Mozilla/5.0";
-    private static final String GET_URL = "http:3000/localhost";
+    private static final String GET_URL = "http:localhost/3000";
 
     public static String getResponse(String path) throws IOException {
 
-        URL obj = new URL(GET_URL);
+        URL obj = new URL("http://localhost:3000" + path);
+        System.out.println("http://localhost:3000" + path + "fresco como lechuga");
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", USER_AGENT);
@@ -35,7 +36,7 @@ public class HttpConnectionExample {
             in.close();
 
             // print result
-            System.out.println(response.toString());
+            responseString = response.toString();
         } else {
             System.out.println("GET request not worked");
         }
