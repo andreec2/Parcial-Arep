@@ -46,7 +46,7 @@ public class HttpServer {
             out.close();
             in.close();
         } else if (uri.getPath().startsWith("/calcu")) {
-            String res = HttpConnectionExample.getResponse("/compreflex" + uri.getQuery());
+            String res = HttpConnectionExample.getResponse("/" + uri.getQuery());
             out.println("HTTP/1.1 200 OK");
             out.println("Content-Type: application/json");
             out.println();
@@ -90,7 +90,7 @@ public class HttpServer {
                 "                    document.getElementById(\"getrespmsg\").innerHTML =\n" +
                 "                    this.responseText;\n" +
                 "                }\n" +
-                "                xhttp.open(\"GET\", \"/calcu?name=\"+nameVar);\n" +
+                "                xhttp.open(\"GET\", \"/calcu?pcompreflex?name=\"+nameVar);\n" +
                 "                xhttp.send();\n" +
                 "            }\n" +
                 "        </script>\n" +

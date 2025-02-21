@@ -2,6 +2,7 @@ package org.example;
 
 import java.net.*;
 import java.io.*;
+import java.util.Arrays;
 
 public class HttpServerRe {
     public static void main(String[] args) throws IOException, URISyntaxException {
@@ -38,7 +39,18 @@ public class HttpServerRe {
                 }
             }
             URI uri = new URI(firstLine.split(" ")[1]);
-            if (uri.getPath().startsWith("/compreflex")) {
+            System.out.println(uri.getQuery() + "esta es la query");
+            if (uri.getPath().startsWith("/pcompreflex")) {
+                System.out.println(uri.getQuery() + "esta es la query");
+                int[] res = getNumbers(uri.getQuery());
+                int[] response = bbl(res);
+                out.println("HTTP/1.1 200 OK");
+                out.println("Content-Type: application/json");
+                out.println();
+                out.println(Arrays.toString(response));
+                out.close();
+                in.close();
+            } else if (uri.getPath().startsWith("/compreflex")){
                 String res = getindex();
                 out.println("HTTP/1.1 200 OK");
                 out.println("Content-Type: text/html");
@@ -64,4 +76,26 @@ public class HttpServerRe {
                 "</html>";
         return response;
     }
+    public static int[] getNumbers(String query){
+        String p1 = query.split("\\(")[1].split("\\)")[0];
+        String[] values = p1.split(",");
+        int[] res = new int[values.length];
+        for(int i = 0; i <= values.length - 1; i++){
+            res[i] = Integer.parseInt(values[i]);
+        }
+        return res;
+    }
+    public static int[] bbl(int[] p){
+        int aux = 0;
+        for(int i = 0; i < p.length - 1; i++){
+            if(p[i] > p[i+1]){
+               aux = p[i];
+               p[i] = p[i+1];
+               p[i+1] = aux;
+            } else { return p;}
+        }
+        return p;
+    }
+
+
 }
